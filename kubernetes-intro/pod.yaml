@@ -6,9 +6,7 @@ metadata:
 spec:
   containers:
   - name: webserver
-    image: nginx
-#    ports:
-#    - containerPort: 8000
+    image: nginx-custom:v1
     volumeMounts:
     - name: workdir
       mountPath: /homework
