@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config-map
+data:
+  car: "bmw"
+  color: "black"
+  file: |
+    Content file via /conf/file
