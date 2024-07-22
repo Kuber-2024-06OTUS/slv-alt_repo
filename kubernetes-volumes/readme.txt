@@ -1,40 +1,40 @@
-# Выполнено ДЗ №4
+# Р’С‹РїРѕР»РЅРµРЅРѕ Р”Р— в„–4
 
- - [V] Основное ДЗ
- - [] Задание со *
+ - [V] РћСЃРЅРѕРІРЅРѕРµ Р”Р—
+ - [] Р—Р°РґР°РЅРёРµ СЃРѕ *
 
-## В процессе сделано:
- - Создан манифест pvc.yaml описывающий PersistentVolumeClaim, запрашивающий хранилище с storageClass по-умолчанию
- - Создан манифест cm.yaml для объекта типа configMap, описывающий произвольный набор пар ключ-значение
- - В манифесте deployment.yaml изменена спецификация volume типа emptyDir, который монтируется в init и основной контейнер,
-на pvc, созданный в предыдущем пункте
- - В манифесте deployment.yaml добавлено монтирование ранее созданного configMap как volume к основному контейнеру пода в директории
-/homework/conf, так, чтобы его содержимое можно было получить, обратившись по url /conf/file
+## Р’ РїСЂРѕС†РµСЃСЃРµ СЃРґРµР»Р°РЅРѕ:
+ - РЎРѕР·РґР°РЅ РјР°РЅРёС„РµСЃС‚ pvc.yaml РѕРїРёСЃС‹РІР°СЋС‰РёР№ PersistentVolumeClaim, Р·Р°РїСЂР°С€РёРІР°СЋС‰РёР№ С…СЂР°РЅРёР»РёС‰Рµ СЃ storageClass РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ
+ - РЎРѕР·РґР°РЅ РјР°РЅРёС„РµСЃС‚ cm.yaml РґР»СЏ РѕР±СЉРµРєС‚Р° С‚РёРїР° configMap, РѕРїРёСЃС‹РІР°СЋС‰РёР№ РїСЂРѕРёР·РІРѕР»СЊРЅС‹Р№ РЅР°Р±РѕСЂ РїР°СЂ РєР»СЋС‡-Р·РЅР°С‡РµРЅРёРµ
+ - Р’ РјР°РЅРёС„РµСЃС‚Рµ deployment.yaml РёР·РјРµРЅРµРЅР° СЃРїРµС†РёС„РёРєР°С†РёСЏ volume С‚РёРїР° emptyDir, РєРѕС‚РѕСЂС‹Р№ РјРѕРЅС‚РёСЂСѓРµС‚СЃСЏ РІ init Рё РѕСЃРЅРѕРІРЅРѕР№ РєРѕРЅС‚РµР№РЅРµСЂ,
+РЅР° pvc, СЃРѕР·РґР°РЅРЅС‹Р№ РІ РїСЂРµРґС‹РґСѓС‰РµРј РїСѓРЅРєС‚Рµ
+ - Р’ РјР°РЅРёС„РµСЃС‚Рµ deployment.yaml РґРѕР±Р°РІР»РµРЅРѕ РјРѕРЅС‚РёСЂРѕРІР°РЅРёРµ СЂР°РЅРµРµ СЃРѕР·РґР°РЅРЅРѕРіРѕ configMap РєР°Рє volume Рє РѕСЃРЅРѕРІРЅРѕРјСѓ РєРѕРЅС‚РµР№РЅРµСЂСѓ РїРѕРґР° РІ РґРёСЂРµРєС‚РѕСЂРёРё
+/homework/conf, С‚Р°Рє, С‡С‚РѕР±С‹ РµРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРµ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ РїРѕР»СѓС‡РёС‚СЊ, РѕР±СЂР°С‚РёРІС€РёСЃСЊ РїРѕ url /conf/file
 
-## Как запустить проект:
- - Переключиться в namespace homework: kubectl config set-context --current --namespace=homework
- - Установить метку на ноду: kubectl label nodes minikube homework=true
- - Установить ingress контроллер Nginx: minikube addons enable ingress
- - Применить манифесты: kubectl apply -f cm.yaml -f deployment.yaml -f ingress.yaml -f namespace.yaml -f pvc.yaml -f service.yaml
+## РљР°Рє Р·Р°РїСѓСЃС‚РёС‚СЊ РїСЂРѕРµРєС‚:
+ - РџРµСЂРµРєР»СЋС‡РёС‚СЊСЃСЏ РІ namespace homework: kubectl config set-context --current --namespace=homework
+ - РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РјРµС‚РєСѓ РЅР° РЅРѕРґСѓ: kubectl label nodes minikube homework=true
+ - РЈСЃС‚Р°РЅРѕРІРёС‚СЊ ingress РєРѕРЅС‚СЂРѕР»Р»РµСЂ Nginx: minikube addons enable ingress
+ - РџСЂРёРјРµРЅРёС‚СЊ РјР°РЅРёС„РµСЃС‚С‹: kubectl apply -f cm.yaml -f deployment.yaml -f ingress.yaml -f namespace.yaml -f pvc.yaml -f service.yaml
 
-## Как проверить работоспособность:
- - Проверить выдачу комманд:
+## РљР°Рє РїСЂРѕРІРµСЂРёС‚СЊ СЂР°Р±РѕС‚РѕСЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ:
+ - РџСЂРѕРІРµСЂРёС‚СЊ РІС‹РґР°С‡Сѓ РєРѕРјРјР°РЅРґ:
 
 Ingress
 $ kubectl get ingress
 NAME           CLASS    HOSTS           ADDRESS        PORTS   AGE
 ingress-lab3   <none>   homework.otus   192.168.49.2   80      78m
 
-Нода
+РќРѕРґР°
 $ kubectl get nodes -o wide
 NAME       STATUS   ROLES           AGE     VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION                       CONTAINER-RUNTIME
 minikube   Ready    control-plane   2d18h   v1.30.0   192.168.49.2   <none>        Ubuntu 22.04.4 LTS   5.15.153.1-microsoft-standard-WSL2   docker://26.1.1
 
-Метка на ноде
-Убедиться в наличии метки homework=true
+РњРµС‚РєР° РЅР° РЅРѕРґРµ
+РЈР±РµРґРёС‚СЊСЃСЏ РІ РЅР°Р»РёС‡РёРё РјРµС‚РєРё homework=true
 $ kubectl describe node minikube
 
-Пространство имен "homework"
+РџСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјРµРЅ "homework"
 $ kubectl get ns
 NAME              STATUS   AGE
 default           Active   2d18h
@@ -44,7 +44,7 @@ kube-node-lease   Active   2d18h
 kube-public       Active   2d18h
 kube-system       Active   2d18h
 
-Службы
+РЎР»СѓР¶Р±С‹
 $ kubectl get svc
 NAME   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 lab3   ClusterIP   10.107.82.174   <none>        80/TCP    89m
@@ -73,9 +73,9 @@ nginx-deploy-d66578ffc-hsff8   1/1     Running   0          78m
 nginx-deploy-d66578ffc-lmpdv   1/1     Running   0          78m
 
 
- - Добавить в файл hosts разрешение имени homework.otus на IP-адрес из выдачи команды kubectl get ingress или kubectl get nodes -o wide
- - Подключиться к кластеру: minikube ssh
- - Проверить выдачу страницы: curl http://homework.otus/index.html
+ - Р”РѕР±Р°РІРёС‚СЊ РІ С„Р°Р№Р» hosts СЂР°Р·СЂРµС€РµРЅРёРµ РёРјРµРЅРё homework.otus РЅР° IP-Р°РґСЂРµСЃ РёР· РІС‹РґР°С‡Рё РєРѕРјР°РЅРґС‹ kubectl get ingress РёР»Рё kubectl get nodes -o wide
+ - РџРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ Рє РєР»Р°СЃС‚РµСЂСѓ: minikube ssh
+ - РџСЂРѕРІРµСЂРёС‚СЊ РІС‹РґР°С‡Сѓ СЃС‚СЂР°РЅРёС†С‹: curl http://homework.otus/index.html
 
 $ minikube ssh
 docker@minikube:~$ curl http://homework.otus/index.html
@@ -94,11 +94,11 @@ curl http://homework.otus/index.html
 </ul>
 </body></html>
 
- - Проверить выдачу страницы: curl http://homework.otus/conf/file
+ - РџСЂРѕРІРµСЂРёС‚СЊ РІС‹РґР°С‡Сѓ СЃС‚СЂР°РЅРёС†С‹: curl http://homework.otus/conf/file
 
 docker@minikube:~$ curl http://homework.otus/conf/file
 curl http://homework.otus/conf/file
 Content file via /conf/file
 
 ## PR checklist:
- - [V] Выставлен label с темой домашнего задания
+ - [V] Р’С‹СЃС‚Р°РІР»РµРЅ label СЃ С‚РµРјРѕР№ РґРѕРјР°С€РЅРµРіРѕ Р·Р°РґР°РЅРёСЏ
