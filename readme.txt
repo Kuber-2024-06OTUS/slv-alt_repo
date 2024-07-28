@@ -1,27 +1,27 @@
-# Выполнено ДЗ №5
+# Р’С‹РїРѕР»РЅРµРЅРѕ Р”Р— в„–5
 
- - [V] Основное ДЗ
+ - [V] РћСЃРЅРѕРІРЅРѕРµ Р”Р—
 
-## В процессе сделано:
- - Создан манифест sa-monitoring.yaml создающий service account monitoring c ClusterRole и ClusterRoleBinding
-для доступа к эндпоинту /metrics кластера
- - Изменен манифест deployment.yaml так, чтобы поды запускались под service account monitoring
- - Создан манифест sa-cd.yaml, создающий в namespace homework service account с именем cd с ролью admin в рамках namespace homework 
- - Создан kubeconfig для service account cd
+## Р’ РїСЂРѕС†РµСЃСЃРµ СЃРґРµР»Р°РЅРѕ:
+ - РЎРѕР·РґР°РЅ РјР°РЅРёС„РµСЃС‚ sa-monitoring.yaml СЃРѕР·РґР°СЋС‰РёР№ service account monitoring c ClusterRole Рё ClusterRoleBinding
+РґР»СЏ РґРѕСЃС‚СѓРїР° Рє СЌРЅРґРїРѕРёРЅС‚Сѓ /metrics РєР»Р°СЃС‚РµСЂР°
+ - РР·РјРµРЅРµРЅ РјР°РЅРёС„РµСЃС‚ deployment.yaml С‚Р°Рє, С‡С‚РѕР±С‹ РїРѕРґС‹ Р·Р°РїСѓСЃРєР°Р»РёСЃСЊ РїРѕРґ service account monitoring
+ - РЎРѕР·РґР°РЅ РјР°РЅРёС„РµСЃС‚ sa-cd.yaml, СЃРѕР·РґР°СЋС‰РёР№ РІ namespace homework service account СЃ РёРјРµРЅРµРј cd СЃ СЂРѕР»СЊСЋ admin РІ СЂР°РјРєР°С… namespace homework 
+ - РЎРѕР·РґР°РЅ kubeconfig РґР»СЏ service account cd
 
-## Как запустить проект:
- - Переключиться в namespace homework: kubectl config set-context --current --namespace=homework
- - Установить метку на ноду: kubectl label nodes minikube homework=true
- - Установить ingress контроллер Nginx: minikube addons enable ingress
- - Применить манифесты: kubectl apply -f sa-monitoring.yaml -f deployment.yaml -f sa-cd.yaml
- - Для создания kibeconfig выполнен экпорт параметров в перменные окружения следующими командами:
+## РљР°Рє Р·Р°РїСѓСЃС‚РёС‚СЊ РїСЂРѕРµРєС‚:
+ - РџРµСЂРµРєР»СЋС‡РёС‚СЊСЃСЏ РІ namespace homework: kubectl config set-context --current --namespace=homework
+ - РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РјРµС‚РєСѓ РЅР° РЅРѕРґСѓ: kubectl label nodes minikube homework=true
+ - РЈСЃС‚Р°РЅРѕРІРёС‚СЊ ingress РєРѕРЅС‚СЂРѕР»Р»РµСЂ Nginx: minikube addons enable ingress
+ - РџСЂРёРјРµРЅРёС‚СЊ РјР°РЅРёС„РµСЃС‚С‹: kubectl apply -f sa-monitoring.yaml -f deployment.yaml -f sa-cd.yaml
+ - Р”Р»СЏ СЃРѕР·РґР°РЅРёСЏ kibeconfig РІС‹РїРѕР»РЅРµРЅ СЌРєРїРѕСЂС‚ РїР°СЂР°РјРµС‚СЂРѕРІ РІ РїРµСЂРјРµРЅРЅС‹Рµ РѕРєСЂСѓР¶РµРЅРёСЏ СЃР»РµРґСѓСЋС‰РёРјРё РєРѕРјР°РЅРґР°РјРё:
 export SA_SECRET_TOKEN=$(kubectl -n homework get secret/sa-cd-secret -o=go-template='{{.data.token}}' | base64 --decode)
 export CLUSTER_NAME=$(kubectl config current-context)
 export CURRENT_CLUSTER=$(kubectl config view --raw -o=go-template='{{range .contexts}}{{if eq .name "'''${CLUSTER_NAME}'''"}}{{ index .context "cluster" }}{{end}}{{end}}')
 export CLUSTER_CA_CERT=$(kubectl config view --raw -o=go-template='{{range .clusters}}{{if eq .name "'''${CURRENT_CLUSTER}'''"}}"{{with index .cluster "certificate-authority-data" }}{{.}}{{end}}"{{ end }}{{ end }}')
 export CLUSTER_ENDPOINT=$(kubectl config view --raw -o=go-template='{{range .clusters}}{{if eq .name "'''${CURRENT_CLUSTER}'''"}}{{ .cluster.server }}{{end}}{{ end }}')
 
-Генерируем конфиг
+Р“РµРЅРµСЂРёСЂСѓРµРј РєРѕРЅС„РёРі
 
 cat << EOF > kubeconfig
 apiVersion: v1
@@ -43,10 +43,10 @@ users:
     token: ${SA_SECRET_TOKEN}
 EOF
 
- - Создан token следущей командой: kubectl create token cd --duration=24h > token
+ - РЎРѕР·РґР°РЅ token СЃР»РµРґСѓС‰РµР№ РєРѕРјР°РЅРґРѕР№: kubectl create token cd --duration=24h > token
 
-## Как проверить работоспособность:
- - Проверить выдачу комманд:
+## РљР°Рє РїСЂРѕРІРµСЂРёС‚СЊ СЂР°Р±РѕС‚РѕСЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ:
+ - РџСЂРѕРІРµСЂРёС‚СЊ РІС‹РґР°С‡Сѓ РєРѕРјРјР°РЅРґ:
 
 kubectl get sa
 
@@ -61,9 +61,9 @@ kubectl get clusterrole
 $ kubectl get clusterrole
 NAME                                                                   CREATED AT
 metrics                                                                2024-07-25T16:47:40Z
-Убедиться в наличии ClusterRole metrics
+РЈР±РµРґРёС‚СЊСЃСЏ РІ РЅР°Р»РёС‡РёРё ClusterRole metrics
 
 $ kubectl get clusterrolebinding
 NAME                                                            ROLE                                                                               AGE
 metrics                                                         ClusterRole/metrics                                                                22h
-Убедиться в наличии ClusterRoleBinding metrics
+РЈР±РµРґРёС‚СЊСЃСЏ РІ РЅР°Р»РёС‡РёРё ClusterRoleBinding metrics
