@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploy_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replica }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.label }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1  
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.label }}
+    spec:
+      containers:
+      - name: {{ .Values.app.name }}
+        image: {{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}
+        volumeMounts:
+        - name: workdir
+          mountPath: /homework
+        - name: confdir
+          mountPath: /homework/conf
+        {{ if .Values.app.livenessProbeEnable }}
+        livenessProbe:
+          {{- toYaml .Values.app.livenessProbe | nindent 10 }}
+        {{- end }}
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "rm /homework/index.html" ]
+      initContainers:
+      - name: {{ .Values.init.name }}
+        image: {{ .Values.init.image.repository }}:{{ .Values.init.image.tag }}
+        command:
+        - wget
+        - "-O"
+        - "/init/index.html"
+        - http://info.cern.ch
+        volumeMounts:
+        - name: workdir
+          mountPath: "/init"
+      volumes:
+      - name: workdir
+        persistentVolumeClaim:
+          claimName: my-pvc
+      - name: confdir
+        configMap:
+          name: my-config-map
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      serviceAccountName: {{ .Values.sa }}

@@ -1,0 +1,14 @@
+environments:
+  prod:
+  dev:
+---
+repositories:
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
+
+releases:
+- name: kafka-{{ .Environment.Name }}
+  namespace: {{ .Environment.Name }}
+  chart: bitnami/kafka
+  values:
+    - "./values-{{ .Environment.Name }}.yaml"

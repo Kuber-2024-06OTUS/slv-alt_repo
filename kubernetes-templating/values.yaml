@@ -1,0 +1,23 @@
+deploy_name: nginx-deploy
+namespace: homework
+replica: 3
+app:
+  label: nginx
+  name: webserver
+  image:
+    repository: nginx-custom
+    tag: v1
+  livenessProbeEnable: true
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 8000
+init:
+  name: initcont
+  image:
+    repository: busybox
+    tag: 1.28
+nodeSelector:
+  homework: "true"
+url: http://homework.otus
+sa: monitoring
