@@ -19,6 +19,5 @@ init:
     tag: 1.28
 nodeSelector:
   homework: "true"
-#sa: monitoring
 url: http://homework.otus
 sa: monitoring
