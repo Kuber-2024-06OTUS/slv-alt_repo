@@ -113,7 +113,7 @@ helm -n dev delete kafka-release
  - Helmfile
 Формируем helmfile.yaml
 
-Устанавливаеи релиз (вариант prod)
+Устанавливаем релиз (вариант prod)
 helmfile -e prod apply
 
 Проверяем наличие и статус подов:
@@ -129,7 +129,7 @@ kafka-prod-zookeeper-0   1/1     Running   0          87s
 Удаляем релиз
 helmfile -e prod delete
 
-Устанавливаеи релиз (вариант dev)
+Устанавливаем релиз (вариант dev)
 helmfile -e dev apply
 
 Проверяем наличие и статус подов:
