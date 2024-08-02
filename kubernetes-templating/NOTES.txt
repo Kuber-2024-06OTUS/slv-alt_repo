@@ -1,0 +1,5 @@
+Release deploy: {{ .Release.Name }}
+Application install in namespace:
+- {{ .Release.Namespace }}
+The web interface is available at:
+{{ .Values.url }}

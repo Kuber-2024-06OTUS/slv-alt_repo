@@ -1,0 +1,16 @@
+image:
+  tag: "3.5.2"
+controller:
+  replicaCount: 0
+broker:
+  replicaCount: 5
+  persistence:
+    size: 1Gi
+listeners:
+  client:
+    protocol: SASL_PLAINTEXT
+kraft:
+  enabled: false
+zookeeper:
+  enabled: true
+  replicaCount: 1
