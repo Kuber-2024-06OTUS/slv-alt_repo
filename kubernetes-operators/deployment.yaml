@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: oper-deployment
   namespace: homework
-#  labels:
-#    app: oper
 spec:
   replicas: 1
   selector:
