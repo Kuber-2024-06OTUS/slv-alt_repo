@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oper-deployment
+  namespace: homework
+#  labels:
+#    app: oper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oper
+  template:
+    metadata:
+      labels:
+        app: oper
+    spec:
+      containers:
+      - name: oper
+        image: roflmaoinmysoul/mysql-operator:1.0.0
+      serviceAccountName: sa-oper
