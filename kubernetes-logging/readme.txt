@@ -5,9 +5,8 @@
 
 ## В процессе сделано:
 
-Развернут клаастер на основе ОС Debian12 из 5 нод, из которых - 3 управляющих и 2 рабочих.
-Облачные услуги использовать не будем. Для удобства доступа к приложеням, в т.ч. вэбсерверам, которые будут развернуты на нодах,
-установим был установлен metallb.
+Развернут кластер на основе ОС Debian12 из 5 нод, из которых - 3 управляющих и 2 рабочих.
+Облачные услуги использовать не будем. Для удобства доступа к приложениям, в т.ч. веб-серверам, которые будут развернуты на нодах, был установлен metallb.
 
 Для инфраструктурных нод добавляем taint:
 kubectl taint nodes node1.int node-role=infra:NoSchedule
@@ -19,7 +18,7 @@ kubectl label nodes node1.int infra=true
 kubectl label nodes node2.int infra=true
 kubectl label nodes node3.int infra=true
 
-Инормация о нодах, выводы комманд:
+Информация о нодах, выводы команд:
 # kubectl get node -o wide --show-labels
 NAME        STATUS   ROLES           AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION   CONTAINER-RUNTIME   LABELS
 node1.int   Ready    control-plane   47h   v1.30.4   192.168.1.31   <none>        Debian GNU/Linux 12 (bookworm)   6.1.0-25-amd64   cri-o://1.30.5      beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=node1.int,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node.kubernetes.io/exclude-from-external-load-balancers=
@@ -44,7 +43,7 @@ curl https://raw.githubusercontent.com/minio/docs/master/source/extra/examples/m
 Применяем данный манифест
 kubectl apply -f minio.yaml
 
-В браузере переходим в вэб-интерфейс по ссылке http://192.168.1.31:9090/browser и настраваем корзины и доступ.
+В браузере переходим в веб-интерфейс по ссылке http://192.168.1.31:9090/browser и настраиваем корзины и доступ.
 
 
 Для удобства контроля компонентов kubernetes установим k9s.
@@ -56,7 +55,7 @@ curl -Ssf https://pkgx.sh | sh
 pkgx k9s
 
 
-Для установки в наш кластер требуего ПО, установим Helm.
+Установим Helm.
 
 ### Установка helm
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
@@ -64,7 +63,6 @@ apt-get install apt-transport-https --yes
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 apt-get update
 apt-get install helm
-
 
 
 Добавляем Grafana’s chart репозиторий в Helm:
