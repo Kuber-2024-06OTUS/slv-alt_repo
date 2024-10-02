@@ -1,0 +1,20 @@
+nodeSelector:
+infra: "true"
+tolerations:
+- key: "node-role"
+  operator: "Equal"
+  value: "infra"
+  effect: "NoSchedule"
+- key: "node-role.kubernetes.io/control-plane"
+  operator: "Exists"
+  effect: "NoSchedule"
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: local-storage
+service:
+  enabled: true
+#  type: ClusterIP
+  type: LoadBalancer
+adminUser: admin
+adminPassword: Password1@
