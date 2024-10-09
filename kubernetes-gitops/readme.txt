@@ -1,3 +1,8 @@
+# Выполнено ДЗ № 10
+
+Развернут кластер на основе ОС Debian12 из 5 нод, из которых - 3 управляющих и 2 рабочих.
+Облачные услуги использовать не будем. Для удобства доступа к приложениям, в т.ч. веб-серверам, которые будут развернуты на нодах, был установлен metallb.
+
 Добавляем argo chart репозиторий в Helm:
 # helm repo add argo https://argoproj.github.io/argo-helm
 "argo" has been added to your repositories
@@ -162,3 +167,6 @@ kubectl get Application kubernetes-templating -o yaml
 По спецификации декларации проекта - https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/
 и выведенного блока данных о приложении создаем манифест, описывающий приложение - app-kub-templating.yaml
 
+
+## PR checklist:
+ - [V] Выставлен label с темой домашнего задания
