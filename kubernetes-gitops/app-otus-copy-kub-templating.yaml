@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-templating
+  namespace: argo
+spec:
+  destination:
+    namespace: homeworkhelm
+    server: https://kubernetes.default.svc
+  project: otus-copy
+  source:
+    path: kubernetes-templating/mychart
+    repoURL: https://github.com/slv-alt/otus-copy.git
+    targetRevision: kubernetes-templating
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
